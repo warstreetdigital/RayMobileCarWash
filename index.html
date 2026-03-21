@@ -1,356 +1,770 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LuxeRide Elite Car Care</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MotorLink | The Standard in Automotive Preservation</title>
+    
+    <!-- Premium Typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-<!-- Google Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Depth & Light Palette */
+            --bg-base: #f4f4f7;
+            --ink: #121214;
+            --ink-muted: #626269;
+            --accent-red: #ff3b30; /* MotorLink Energy */
+            --accent-red-glow: rgba(255, 59, 48, 0.25);
+            --sunlight: rgba(255, 255, 255, 0.9);
+            --warm-glow: rgba(255, 245, 235, 0.5);
+            
+            /* Motion & Curves */
+            --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
+            --ease-in-out-soft: cubic-bezier(0.4, 0, 0.2, 1);
+            
+            /* Layered Shadows */
+            --shadow-float: 
+                0 10px 30px -10px rgba(0, 0, 0, 0.08),
+                0 20px 40px -15px rgba(0, 0, 0, 0.04),
+                0 1px 3px rgba(0, 0, 0, 0.02);
+            
+            --shadow-hover: 
+                0 30px 60px -12px rgba(0, 0, 0, 0.12),
+                0 18px 36px -18px rgba(0, 0, 0, 0.08),
+                0 0 0 1px rgba(255, 59, 48, 0.05);
+        }
 
-<style>
-:root {
-  --bg-light:#fdfdfd;
-  --card-bg:rgba(255,255,255,0.85);
-  --accent:#00cfff;
-  --text:#111;
-  --shadow-glow:0 0 40px rgba(0, 207, 255, 0.25);
-}
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
 
-*{box-sizing:border-box;margin:0;padding:0;font-family:"Inter Tight",system-ui;}
+        body {
+            background-color: var(--bg-base);
+            /* Multi-layered Light System */
+            background-image: 
+                radial-gradient(circle at 10% 10%, var(--sunlight) 0%, transparent 40%),
+                radial-gradient(circle at 90% 20%, var(--warm-glow) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(255, 59, 48, 0.03) 0%, transparent 60%),
+                radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.6) 0%, transparent 40%);
+            background-attachment: fixed;
+            color: var(--ink);
+            font-family: 'Inter', system-ui, sans-serif;
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
 
-body{
-  background:var(--bg-light);
-  color:var(--text);
-  padding:0;
-  margin:0;
-  overflow-x:hidden;
-}
+        /* --- Layout --- */
+        .app-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 40px;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
 
-/* MASTER WRAPPER */
-.master{
-  max-width:1100px;
-  margin:0 auto;
-  padding:40px 20px;
-}
+        header {
+            padding: 100px 0 60px;
+            text-align: center;
+            position: relative;
+        }
 
-/* HERO */
-.hero{
-  padding:80px 20px;
-  border-radius:24px;
-  background:rgba(255,255,255,0.9);
-  text-align:center;
-  backdrop-filter:blur(12px);
-  box-shadow:var(--shadow-glow);
-}
-.hero h1{
-  font-size:3rem;
-  font-weight:800;
-  color:var(--accent);
-  letter-spacing:.05em;
-  margin-bottom:12px;
-}
-.hero p{
-  font-size:1.2rem;
-  font-weight:500;
-  color:var(--text);
-  max-width:600px;
-  margin:0 auto;
-}
+        /* Halo behind logo */
+        header::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, transparent 70%);
+            z-index: -1;
+        }
 
-/* SLIDESHOW */
-.slideshow{
-  position:relative;
-  width:100%;
-  height:320px;
-  border-radius:20px;
-  overflow:hidden;
-  margin:40px 0;
-  box-shadow:var(--shadow-glow);
-  border:1px solid rgba(0,207,255,0.2);
-}
-.slideshow img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  position:absolute;
-  transition:opacity .8s ease-in-out;
-}
+        .brand-logo {
+            font-weight: 800;
+            font-size: 14px;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            margin-bottom: 32px;
+            color: var(--ink-muted);
+            display: inline-block;
+            position: relative;
+        }
 
-/* SERVICES CARDS */
-section{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-  gap:30px;
-  margin-bottom:60px;
-}
-.service-card{
-  background:var(--card-bg);
-  border-radius:24px;
-  padding:30px 25px;
-  text-align:left;
-  cursor:pointer;
-  position:relative;
-  box-shadow:var(--shadow-glow);
-  transition:transform .4s, box-shadow .4s;
-  backdrop-filter:blur(10px);
-}
-.service-card:hover{
-  transform:translateY(-12px);
-  box-shadow:0 0 60px rgba(0,207,255,0.4);
-}
-.service-card h3{
-  font-weight:700;
-  font-size:1.4rem;
-  color:var(--accent);
-  margin-bottom:8px;
-}
-.service-card p{
-  font-size:1rem;
-  color:#333;
-  margin-bottom:12px;
-}
-.service-card .price{
-  font-weight:700;
-  color:var(--accent);
-  margin-bottom:16px;
-}
-.service-card .cta-btn{
-  padding:12px 28px;
-  border:none;
-  background:var(--accent);
-  color:var(--bg-light);
-  font-weight:700;
-  border-radius:12px;
-  transition:all .3s;
-}
-.service-card .cta-btn:hover{
-  background:#00e5ff;
-}
+        .brand-logo::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 2px;
+            background: var(--accent-red);
+            box-shadow: 0 0 10px var(--accent-red-glow);
+        }
 
-/* MODAL */
-.modal{
-  position:fixed;
-  inset:0;
-  background:rgba(255,255,255,0.95);
-  display:none;
-  align-items:center;
-  justify-content:center;
-  padding:20px;
-  z-index:9999;
-  backdrop-filter:blur(10px);
-}
-.modal-box{
-  background:var(--card-bg);
-  border-radius:24px;
-  max-width:450px;
-  width:100%;
-  padding:30px;
-  position:relative;
-  text-align:center;
-  box-shadow:var(--shadow-glow);
-  backdrop-filter:blur(12px);
-}
-.modal-box h2{
-  color:var(--accent);
-  font-weight:700;
-  margin-bottom:12px;
-}
-.modal-box p{
-  margin:8px 0 16px;
-  font-weight:500;
-  color:var(--text);
-}
-.modal-box input, .modal-box select{
-  width:100%;
-  padding:10px;
-  margin:6px 0;
-  border-radius:8px;
-  border:1px solid #ccc;
-  background:rgba(255,255,255,0.7);
-  color:var(--text);
-}
-.modal-box .modal-cta{
-  margin-top:16px;
-  padding:14px 0;
-  width:100%;
-  background:var(--accent);
-  color:var(--bg-light);
-  font-weight:700;
-  border:none;
-  border-radius:12px;
-}
-.modal-box .modal-cta:hover{
-  background:#00e5ff;
-}
-.modal-box .close-x{
-  position:absolute;
-  top:16px;
-  right:16px;
-  font-size:1.5rem;
-  font-weight:700;
-  cursor:pointer;
-  color:var(--accent);
-}
+        .hero-title {
+            font-size: clamp(40px, 8vw, 76px);
+            font-weight: 800;
+            line-height: 0.95;
+            letter-spacing: -0.06em;
+            margin-bottom: 24px;
+            color: var(--ink);
+        }
 
-/* FOOTER */
-.footer{
-  margin-top:40px;
-  font-size:.9rem;
-  text-align:center;
-  color:#777;
-}
+        .hero-subtitle {
+            font-size: 19px;
+            color: var(--ink-muted);
+            max-width: 580px;
+            margin: 0 auto;
+            font-weight: 400;
+            letter-spacing: -0.01em;
+        }
 
-/* INSTALL BUTTON */
-#installBtn{
-  position:fixed;
-  bottom:25px;
-  right:25px;
-  background:var(--accent);
-  color:var(--bg-light);
-  font-weight:700;
-  border:none;
-  border-radius:18px;
-  padding:14px 25px;
-  cursor:pointer;
-  box-shadow:var(--shadow-glow);
-  display:none;
-  z-index:10000;
-  transition:all .3s;
-}
-#installBtn:hover{
-  background:#00e5ff;
-}
-</style>
+        /* --- Navigation --- */
+        .nav-bar {
+            position: sticky;
+            top: 30px;
+            z-index: 100;
+            display: none;
+            justify-content: center;
+            margin-bottom: 50px;
+        }
+
+        .back-btn {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            padding: 12px 24px;
+            border-radius: 100px;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            box-shadow: var(--shadow-float);
+            transition: all 0.4s var(--ease-out-expo);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--ink);
+        }
+
+        .back-btn:hover {
+            transform: translateY(-2px) scale(1.02);
+            background: #fff;
+            box-shadow: var(--shadow-hover);
+        }
+
+        /* --- View System --- */
+        .view {
+            display: none;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s var(--ease-out-expo), transform 0.8s var(--ease-out-expo);
+        }
+
+        .view.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- Floating Card System --- */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+            padding-bottom: 100px;
+        }
+
+        .card-container {
+            position: relative;
+            perspective: 1000px;
+        }
+
+        /* Halo behind card */
+        .card-container::before {
+            content: '';
+            position: absolute;
+            inset: -20px;
+            background: radial-gradient(circle at center, rgba(255,255,255,0.6) 0%, transparent 70%);
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.6s var(--ease-out-expo);
+        }
+
+        .card-container:hover::before {
+            opacity: 1;
+        }
+
+        .card {
+            background: linear-gradient(135deg, #ffffff 0%, #fcfcfd 100%);
+            border-radius: 32px;
+            padding: 50px 40px;
+            cursor: pointer;
+            transition: all 0.6s var(--ease-out-expo);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+            box-shadow: var(--shadow-float);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Light reflection on card */
+        .card::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at center, rgba(255,255,255,0.4) 0%, transparent 50%);
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.6s var(--ease-out-expo);
+        }
+
+        .card:hover {
+            transform: translateY(-15px) rotateX(2deg);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .card:hover::after {
+            opacity: 1;
+        }
+
+        .card-tag {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--accent-red);
+            margin-bottom: 20px;
+            display: block;
+            text-shadow: 0 0 10px var(--accent-red-glow);
+        }
+
+        .card-title {
+            font-size: 32px;
+            font-weight: 700;
+            letter-spacing: -0.04em;
+            margin-bottom: 16px;
+            line-height: 1.1;
+            color: var(--ink);
+        }
+
+        .card-desc {
+            font-size: 15px;
+            color: var(--ink-muted);
+            margin-bottom: 40px;
+            font-weight: 400;
+            line-height: 1.7;
+        }
+
+        .card-price {
+            font-size: 26px;
+            font-weight: 700;
+            margin-bottom: 40px;
+            letter-spacing: -0.02em;
+        }
+
+        .card-price span {
+            font-size: 14px;
+            font-weight: 400;
+            color: var(--ink-muted);
+        }
+
+        /* --- Button Energy --- */
+        .btn-action {
+            background: var(--ink);
+            color: #fff;
+            padding: 20px;
+            border-radius: 18px;
+            border: none;
+            font-weight: 700;
+            font-size: 15px;
+            width: 100%;
+            cursor: pointer;
+            transition: all 0.3s var(--ease-out-expo);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .btn-action::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(255,255,255,0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .card:hover .btn-action {
+            background: var(--accent-red);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px var(--accent-red-glow);
+        }
+
+        .btn-action:active {
+            transform: translateY(1px) scale(0.98);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        /* --- Featured Highlight --- */
+        .card.featured {
+            border: 1px solid rgba(255, 59, 48, 0.15);
+        }
+
+        .card.featured::before {
+            content: "Harare’s Choice";
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            background: var(--accent-red);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 100px;
+            font-size: 9px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            box-shadow: 0 4px 10px var(--accent-red-glow);
+        }
+
+        /* --- Landing Gateway --- */
+        .landing-grid {
+            grid-template-columns: 1fr 1fr;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .gateway-card {
+            min-height: 540px;
+            text-align: center;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .gateway-card .card-title {
+            font-size: 48px;
+            margin-bottom: 24px;
+        }
+
+        /* --- Floating Modal --- */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(25px);
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            animation: modalFadeIn 0.6s var(--ease-out-expo);
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; backdrop-filter: blur(0); }
+            to { opacity: 1; backdrop-filter: blur(25px); }
+        }
+
+        .modal {
+            background: #fff;
+            width: 100%;
+            max-width: 520px;
+            border-radius: 40px;
+            padding: 70px 60px;
+            position: relative;
+            box-shadow: 
+                0 50px 100px -20px rgba(0,0,0,0.15),
+                0 0 0 1px rgba(0,0,0,0.02),
+                0 0 40px rgba(255, 59, 48, 0.05);
+            transform: translateY(0);
+            animation: modalSlideUp 0.8s var(--ease-out-expo);
+        }
+
+        @keyframes modalSlideUp {
+            from { transform: translateY(40px); }
+            to { transform: translateY(0); }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 32px;
+            right: 32px;
+            background: #f0f0f4;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .modal-close:hover {
+            background: var(--accent-red);
+            color: #fff;
+            transform: rotate(90deg);
+        }
+
+        .modal-title {
+            font-size: 34px;
+            font-weight: 800;
+            letter-spacing: -0.05em;
+            margin-bottom: 8px;
+            color: var(--ink);
+        }
+
+        .modal-subtitle {
+            font-size: 16px;
+            color: var(--accent-red);
+            font-weight: 700;
+            margin-bottom: 48px;
+            letter-spacing: -0.02em;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+            text-align: left;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 10px;
+            color: var(--ink-muted);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 18px 22px;
+            border-radius: 16px;
+            border: 1px solid rgba(0,0,0,0.06);
+            background: #f9f9fb;
+            font-size: 16px;
+            font-family: inherit;
+            transition: all 0.4s var(--ease-out-expo);
+            color: var(--ink);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--accent-red);
+            background: #fff;
+            box-shadow: 0 0 0 4px var(--accent-red-glow);
+        }
+
+        .pickup-toggle {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            padding: 24px;
+            background: rgba(255, 59, 48, 0.04);
+            border-radius: 24px;
+            margin: 40px 0;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 1px solid transparent;
+        }
+
+        .pickup-toggle:hover {
+            background: rgba(255, 59, 48, 0.07);
+            border-color: rgba(255, 59, 48, 0.1);
+        }
+
+        .pickup-toggle input {
+            width: 22px;
+            height: 22px;
+            accent-color: var(--accent-red);
+        }
+
+        .pickup-text b { display: block; font-size: 15px; font-weight: 700; margin-bottom: 2px; }
+        .pickup-text span { font-size: 13px; color: var(--ink-muted); }
+
+        /* --- Responsive --- */
+        @media (max-width: 840px) {
+            .landing-grid { grid-template-columns: 1fr; }
+            .modal { padding: 50px 30px; }
+            .hero-title { font-size: 44px; }
+            .gateway-card { min-height: 420px; }
+            .app-container { padding: 0 24px; }
+        }
+
+        footer {
+            padding: 80px 0;
+            text-align: center;
+            font-size: 11px;
+            color: var(--ink-muted);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            font-weight: 600;
+            opacity: 0.6;
+        }
+    </style>
 </head>
-
 <body>
-<div class="master">
 
-  <!-- HERO -->
-  <div class="hero">
-    <h1>LuxeRide Elite Car Care</h1>
-    <p>Ultra-Premium Mobile Detailing for Supercars and Exotic Machines — Clean. Shine. Command Presence.</p>
-  </div>
+    <div class="app-container">
+        
+        <header>
+            <div class="brand-logo">MotorLink</div>
+            <h1 class="hero-title" id="mainTitle">Harare’s definitive mobile car care network.</h1>
+            <p class="hero-subtitle" id="mainSubtitle">Preserving vehicle integrity through engineered detailing. Professional restoration, delivered to your coordinates.</p>
+        </header>
 
-  <!-- SLIDESHOW -->
-  <div class="slideshow">
-    <img src="car1.jpg" style="opacity:1;">
-    <img src="car2.jpg" style="opacity:0;">
-    <img src="car3.jpg" style="opacity:0;">
-  </div>
+        <nav class="nav-bar" id="navBar">
+            <button class="back-btn" onclick="navigateTo('landing')">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                Return to Selection
+            </button>
+        </nav>
 
-  <!-- SERVICES -->
-  <section>
-    <div class="service-card" onclick="openModal('Standard Wash','10 USD','Exterior wash and interior vacuuming','standard')">
-      <h3>Standard Wash</h3>
-      <p>Exterior hand wash and interior vacuum.</p>
-      <div class="price">10 USD</div>
-      <button class="cta-btn">Book Now</button>
+        <!-- LANDING VIEW -->
+        <main id="landingView" class="view active">
+            <div class="grid landing-grid">
+                <div class="card-container">
+                    <div class="card gateway-card" onclick="navigateTo('student')">
+                        <span class="card-tag">The Campus Standard</span>
+                        <h2 class="card-title">Student<br>Street</h2>
+                        <p class="card-desc">Stay sharp on campus without the weekend queue. Consistent, budget-friendly maintenance for the ambitious student.</p>
+                        <button class="btn-action">Explore Plans</button>
+                    </div>
+                </div>
+
+                <div class="card-container">
+                    <div class="card gateway-card" onclick="navigateTo('driver')">
+                        <span class="card-tag">The Professional Standard</span>
+                        <h2 class="card-title">Driver<br>Street</h2>
+                        <p class="card-desc">On-demand detailing engineered for the professional commute. Maintain your edge with precision results.</p>
+                        <button class="btn-action">View Services</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- STUDENT VIEW -->
+        <section id="studentView" class="view">
+            <div class="grid">
+                <div class="card-container">
+                    <div class="card" onclick="openBooking('Basic Pass', 10, true)">
+                        <span class="card-tag">Essential Maintenance</span>
+                        <h3 class="card-title">Basic Pass</h3>
+                        <p class="card-desc">Beat the dust, keep the focus. 2 professional washes per month including basic exterior restoration and interior vacuuming.</p>
+                        <div class="card-price">$10 <span>/ month</span></div>
+                        <button class="btn-action">Secure Subscription</button>
+                    </div>
+                </div>
+
+                <div class="card-container">
+                    <div class="card featured" onclick="openBooking('Active Pass', 18, true)">
+                        <span class="card-tag">Harare’s Choice</span>
+                        <h3 class="card-title">Active Pass</h3>
+                        <p class="card-desc">The commuter’s choice. 4 washes per month with access to Basic + Full Clean services and priority booking slots.</p>
+                        <div class="card-price">$18 <span>/ month</span></div>
+                        <button class="btn-action">Secure Subscription</button>
+                    </div>
+                </div>
+
+                <div class="card-container">
+                    <div class="card" onclick="openBooking('Campus Pro Pass', 30, true)">
+                        <span class="card-tag">The Executive Student</span>
+                        <h3 class="card-title">Campus Pro</h3>
+                        <p class="card-desc">Zero compromise on your vehicle’s image. Weekly washes (fair use), priority booking, and 1 full premium detail every month.</p>
+                        <div class="card-price">$30 <span>/ month</span></div>
+                        <button class="btn-action">Secure Subscription</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- DRIVER VIEW -->
+        <section id="driverView" class="view">
+            <div class="grid">
+                <div class="card-container">
+                    <div class="card" onclick="openBooking('Basic Clean', 8, false)">
+                        <span class="card-tag">Urban Refresh</span>
+                        <h3 class="card-title">Basic Clean</h3>
+                        <p class="card-desc">Remove the day’s dust in 45 minutes. Professional exterior wash and interior vacuuming for a quick mid-week reset.</p>
+                        <div class="card-price">$8</div>
+                        <button class="btn-action">Book Now</button>
+                    </div>
+                </div>
+
+                <div class="card-container">
+                    <div class="card featured" onclick="openBooking('Full Clean', 15, false)">
+                        <span class="card-tag">Signature Restoration</span>
+                        <h3 class="card-title">Full Clean</h3>
+                        <p class="card-desc">Deep interior hygiene, exterior wash, and tire shine. Engineered to restore your vehicle’s professional presence.</p>
+                        <div class="card-price">$15</div>
+                        <button class="btn-action">Book Now</button>
+                    </div>
+                </div>
+
+                <div class="card-container">
+                    <div class="card" onclick="openBooking('Premium Detail', 25, false)">
+                        <span class="card-tag">The Total Overhaul</span>
+                        <h3 class="card-title">Premium Detail</h3>
+                        <p class="card-desc">Full deep detailing, exterior polish, and interior restoration. The ultimate protection against Harare’s elements.</p>
+                        <div class="card-price">$25</div>
+                        <button class="btn-action">Book Now</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MODAL -->
+        <div class="modal-overlay" id="modalOverlay">
+            <div class="modal">
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+                <h2 class="modal-title" id="modalTitle">Confirm Schedule</h2>
+                <p class="modal-subtitle" id="modalPrice">$0.00</p>
+
+                <div class="form-group">
+                    <label class="form-label">Vehicle Owner</label>
+                    <input type="text" id="clientName" class="form-input" placeholder="Full Name">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">WhatsApp Contact</label>
+                    <input type="tel" id="clientPhone" class="form-input" placeholder="e.g. 0779 388 560">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Service Coordinates</label>
+                    <input type="text" id="clientLocation" class="form-input" placeholder="Vehicle Location">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Operational Notes</label>
+                    <input type="text" id="clientNotes" class="form-input" placeholder="Special requirements...">
+                </div>
+
+                <label class="pickup-toggle" onclick="setTimeout(updatePrice, 50)">
+                    <input type="checkbox" id="pickupCheck">
+                    <div class="pickup-text">
+                        <b>Concierge Pickup & Drop</b>
+                        <span>Add $5.00. We collect, restore, and return your vehicle safely.</span>
+                    </div>
+                </label>
+
+                <button class="btn-action" onclick="initiateCheckout()">Secure Slot via WhatsApp</button>
+            </div>
+        </div>
+
+        <footer>
+            MotorLink &copy; 2026 &middot; Harare Premium Mobility Standards
+        </footer>
+
     </div>
 
-    <div class="service-card" onclick="openModal('Premium Wash','20 USD','Full detailing: interior, exterior, polish and wax','premium')">
-      <h3>Premium Wash</h3>
-      <p>Full interior and exterior detailing including polish.</p>
-      <div class="price">20 USD</div>
-      <button class="cta-btn">Book Now</button>
-    </div>
+    <script>
+        let currentService = "";
+        let basePrice = 0;
+        let isSub = false;
 
-    <div class="service-card" onclick="openModal('Student Special','7 USD','Discounted package for students','student')">
-      <h3>Student Special</h3>
-      <p>Same as standard wash with student discount. Earn points!</p>
-      <div class="price">7 USD</div>
-      <button class="cta-btn">Book Now</button>
-    </div>
+        function navigateTo(view) {
+            const views = ['landing', 'student', 'driver'];
+            views.forEach(v => {
+                const element = document.getElementById(v + 'View');
+                if (element) element.classList.remove('active');
+            });
 
-    <div class="service-card" onclick="openModal('Pickup / Drop-off Service','Varies','We pick up your car and return it cleaned.','pickup')">
-      <h3>Pickup / Drop-off Service</h3>
-      <p>We collect, clean and return your vehicle.</p>
-      <div class="price">Varies</div>
-      <button class="cta-btn">Book Now</button>
-    </div>
-  </section>
+            const activeView = document.getElementById(view + 'View');
+            if (activeView) activeView.classList.add('active');
+            
+            const nav = document.getElementById('navBar');
+            const title = document.getElementById('mainTitle');
+            const subtitle = document.getElementById('mainSubtitle');
 
-  <!-- MODAL -->
-  <div class="modal" id="modal">
-    <div class="modal-box">
-      <span class="close-x" onclick="closeModal()">×</span>
-      <h2 id="modal-title"></h2>
-      <p id="modal-price"></p>
+            if (view === 'landing') {
+                nav.style.display = 'none';
+                title.innerText = "Harare’s definitive mobile car care network.";
+                subtitle.innerText = "Preserving vehicle integrity through engineered detailing. Professional restoration, delivered to your coordinates.";
+            } else {
+                nav.style.display = 'flex';
+                if (view === 'student') {
+                    title.innerText = "The Campus Standard.";
+                    subtitle.innerText = "Consistent care for the ambitious student. Subscription-based mobility maintenance.";
+                } else {
+                    title.innerText = "The Professional Standard.";
+                    subtitle.innerText = "Precision detailing for the professional on the move. On-demand engineered results.";
+                }
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
 
-      <input type="text" id="name" placeholder="Your Name" required>
-      <input type="tel" id="phone" placeholder="Your Phone Number" required>
-      <input type="text" id="pickup" placeholder="Pickup Location" required>
-      <input type="text" id="dropoff" placeholder="Drop-off Location" required>
-      <select id="student">
-        <option value="no">Regular Customer</option>
-        <option value="yes">Student (Earn Points)</option>
-      </select>
+        function openBooking(name, price, sub) {
+            currentService = name;
+            basePrice = price;
+            isSub = sub;
+            
+            document.getElementById('modalTitle').innerText = name;
+            updatePrice();
+            
+            document.getElementById('modalOverlay').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
 
-      <button class="modal-cta" onclick="requestBooking()">Send Booking</button>
-    </div>
-  </div>
+        function closeModal() {
+            document.getElementById('modalOverlay').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
 
-  <!-- INSTALL BUTTON -->
-  <button id="installBtn">Install LuxeRide App</button>
+        function updatePrice() {
+            const pickup = document.getElementById('pickupCheck').checked;
+            const total = basePrice + (pickup ? 5 : 0);
+            document.getElementById('modalPrice').innerText = `$${total.toFixed(2)}${isSub ? ' / month' : ''}`;
+        }
 
-  <!-- FOOTER -->
-  <div class="footer">
-    © 2026 LuxeRide Elite Car Care · Powered by Shopystreet
-  </div>
+        function initiateCheckout() {
+            const name = document.getElementById('clientName').value.trim();
+            const phone = document.getElementById('clientPhone').value.trim();
+            const loc = document.getElementById('clientLocation').value.trim();
+            const notes = document.getElementById('clientNotes').value.trim() || "None";
+            const pickup = document.getElementById('pickupCheck').checked;
 
-</div>
+            if (!name || !phone || !loc) {
+                alert("Operational data missing. Please complete the form.");
+                return;
+            }
 
-<script>
-// SLIDESHOW
-let slides=document.querySelectorAll('.slideshow img');
-let current=0;
-setInterval(()=>{
-  slides[current].style.opacity=0;
-  current=(current+1)%slides.length;
-  slides[current].style.opacity=1;
-},4000);
+            const total = basePrice + (pickup ? 5 : 0);
+            const pickupStr = pickup ? "YES (Concierge)" : "NO";
+            
+            const waMsg = `*MOTORLINK BOOKING CONFIRMATION*%0A%0A` +
+                `*Service:* ${currentService}%0A` +
+                `*Total:* $${total.toFixed(2)}${isSub ? '/mo' : ''}%0A` +
+                `*Pickup:* ${pickupStr}%0A%0A` +
+                `*Client:* ${name}%0A` +
+                `*Phone:* ${phone}%0A` +
+                `*Location:* ${loc}%0A` +
+                `*Notes:* ${notes}%0A%0A` +
+                `_Sent via MotorLink Harare App_`;
 
-// MODAL LOGIC
-let currentService="";
-function openModal(title, price, desc, code){
-  currentService=title;
-  document.getElementById('modal-title').innerText=title.toUpperCase();
-  document.getElementById('modal-price').innerText=price.toUpperCase();
-  document.getElementById('modal').style.display='flex';
-}
-function closeModal(){document.getElementById('modal').style.display='none';}
+            window.open(`https://wa.me/263779388560?text=${waMsg}`, '_blank');
+            closeModal();
+        }
 
-// BOOKING
-function requestBooking(){
-  const name=document.getElementById('name').value;
-  const phone=document.getElementById('phone').value;
-  const pickup=document.getElementById('pickup').value;
-  const dropoff=document.getElementById('dropoff').value;
-  const student=document.getElementById('student').value;
-  let pointsMsg=student==="yes"?" You earn 1 point for this order.":"";
-  const message=`Hi LuxeRide Elite Car Care, I want to book: ${currentService}. Name: ${name}, Phone: ${phone}, Pickup: ${pickup}, Drop-off: ${dropoff}.${pointsMsg}`;
-  window.location.href=`https://wa.me/263779388560?text=${encodeURIComponent(message)}`;
-  closeModal();
-}
-
-// PWA INSTALL
-let deferredPrompt;
-const installBtn=document.getElementById('installBtn');
-
-window.addEventListener('beforeinstallprompt', (e)=>{
-  e.preventDefault();
-  deferredPrompt=e;
-  installBtn.style.display='block';
-});
-
-installBtn.addEventListener('click', async ()=>{
-  installBtn.style.display='none';
-  deferredPrompt.prompt();
-  const {outcome}=await deferredPrompt.userChoice;
-  if(outcome==='accepted'){console.log('App Installed');}
-  deferredPrompt=null;
-});
-</script>
+        // Initialize view
+        window.onload = () => navigateTo('landing');
+    </script>
 </body>
 </html>
